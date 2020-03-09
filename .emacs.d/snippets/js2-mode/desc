@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : desc
+#key : desc
+#contributor : Xavier
+# --
+describe('$1', () => {
+  $0
+});
+
+

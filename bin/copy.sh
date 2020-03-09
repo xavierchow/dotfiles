@@ -10,3 +10,5 @@ cp ~/.config/karabiner/karabiner.json "$ROOT/karabiner/"
 cp ~/.spacemacs $ROOT
 cp ~/.zshrc $ROOT
 cp ~/.zshenv $ROOT
+
+cp -r ~/.emacs.d/private "$ROOT/.emacs.d/"

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : us
+#key : us
+#contributor : Xavier
+# --
+'use strict';

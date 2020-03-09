@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : console.log
+#key : cl
+#contributor : Xavier
+# --
+console.log('${1:} = %j\n', $1);
