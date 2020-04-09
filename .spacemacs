@@ -30,7 +30,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(yaml
+   '(graphviz
+     typescript
+     yaml
      python
      csv
      html
@@ -59,8 +61,7 @@ values."
      ;; better-defaults
      emacs-lisp
      git
-     (markdown :variables markdown-live-preview-engine 'vmd
-               )
+     (markdown :variables markdown-live-preview-engine 'vmd)
      (org :variables org-enable-github-support t)
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -72,6 +73,7 @@ values."
      spell-checking
      syntax-checking
      version-control
+     jseq
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -81,7 +83,9 @@ values."
                                       eterm-256color
                                       doom-themes
                                       nodejs-repl
-                                      kibit-helper)
+                                      kibit-helper
+                                      dash-at-point
+                                      youdao-dictionary)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -153,10 +157,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-light
+   dotspacemacs-themes '(doom-one
+                         spacemacs-light
                          srcery
                          tango
-                         doom-one
                          spacemacs-dark
                          apropospriate-dark)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -368,6 +372,8 @@ you should place your code here."
         '((sequence "TODO(t)" "WORKING(n)" "WAITING(w@/!)"
                      "|" "DONE(d@/!)" "CANCELLED(c)")))
   (add-hook 'term-mode-hook #'eterm-256color-mode)
+  ;; https://github.com/syl20bnr/spacemacs/issues/4207#issuecomment-199951764
+  (setq projectile-enable-caching t)
   ;; nodejs-repl https://github.com/abicky/nodejs-repl.el/wiki/Spacemacs-Configuration
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ne" 'nodejs-repl-send-last-expression)
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode "nj" 'nodejs-repl-send-line)
@@ -375,6 +381,15 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode "nl" 'nodejs-repl-load-file)
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode "n'" 'nodejs-repl-switch-to-repl)
   (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ns" 'nodejs-repl-switch-to-repl)
+  (add-to-list 'dash-at-point-mode-alist '(js2-mode . "nodejs,javascript"))
+  (spacemacs/set-leader-keys (kbd "dd") 'dash-at-point)
+  ;; https://github.com/xuchunyang/youdao-dictionary.el
+  ;; Enable Cache
+  (setq url-automatic-caching t)
+  ;; Example Key binding
+  (global-set-key (kbd "C-c y") 'youdao-dictionary-search-at-point-tooltip)
+  ;;(use-package jsv-mode
+  ;; :commands jsv-mode)
   )
 ;;;; Proxy: https://medium.com/@ageekymonk/setting-up-spacemacs-for-development-part-2-proxy-and-git-3c1da0362ed6
 (defun module/proxy ()
@@ -463,10 +478,11 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f"))))
+ '(org-agenda-files (quote ("~/org/my-todo.org")))
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-    (yaml-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient diff-hl company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (graphviz-dot-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient diff-hl company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef")))
  '(pos-tip-background-color "#ffffffffffff")
  '(pos-tip-foreground-color "#78909C")

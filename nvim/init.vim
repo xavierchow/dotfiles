@@ -95,7 +95,7 @@ let g:oceanic_next_terminal_italic = 1
 let g:srcery_inverse_match_paren = 1
 let g:srcery_italic = 1
 " colorscheme srcery
-" colorscheme OceanicNext
+colorscheme OceanicNext
 
 
 
@@ -107,7 +107,7 @@ let g:srcery_italic = 1
 "colorscheme solarized
 "below for solarize
 let g:solarized_termcolors=256
-colo solarized
+"colo solarized
 "colo desert
 
 "treat json as javascript for syntax highlight

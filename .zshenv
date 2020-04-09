@@ -3,6 +3,8 @@ export PATH="/Users/xavier/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr
 export NVM_DIR="/Users/xavier/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+ulimit -n 1024
+
 
 # Swagger ui preview
 function swagger_yaml2json() {
